@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("OPENED_BEFORE",1);
 			//first time setup
 			PlayerPrefs.SetInt("HighScore",0);
+			PlayerPrefs.SetInt ("Coins", 0);
 			has_been_opened_before =  true;
 			PlayerPrefs.Save();
 		}
@@ -29,6 +30,13 @@ public class SaveManager : MonoBehaviour {
 	}
 	public static void SetHighScore(int highscore){
 		PlayerPrefs.SetInt ("HighScore", highscore);
+		PlayerPrefs.Save ();
+	}
+	public static int GetCoins(){
+		return PlayerPrefs.GetInt("Coins");
+	}
+	public static void SetCoins(int coins){
+		PlayerPrefs.SetInt ("Coins", coins);
 		PlayerPrefs.Save ();
 	}
 	public static void Save(){

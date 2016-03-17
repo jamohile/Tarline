@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ClickHandler : MonoBehaviour {
@@ -23,7 +24,7 @@ public class ClickHandler : MonoBehaviour {
 	}
 
 	public void Change_Scene(){
-		Application.LoadLevel (Scene_To_Load);
+		SceneManager.LoadScene (Scene_To_Load);
 	}
 
 }

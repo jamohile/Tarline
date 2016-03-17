@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Splash : MonoBehaviour {
 	SpriteRenderer logo_spriteRenderer;
@@ -42,7 +43,7 @@ public class Splash : MonoBehaviour {
 	}
 
 	void Start_Game(){
-		Application.LoadLevel ("StartMenu");
+		SceneManager.LoadScene("StartMenu");
 	}
 
 

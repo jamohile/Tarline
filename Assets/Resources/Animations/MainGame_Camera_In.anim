@@ -198,6 +198,33 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     path: HighScore
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: {x: -15, y: 4.4, z: 10}
+        inSlope: {x: 14.181817, y: 0, z: 0}
+        outSlope: {x: 14.181817, y: 0, z: 0}
+        tangentMode: 0
+      - time: 0.36666667
+        value: {x: -9.8, y: 4.4, z: 10}
+        inSlope: {x: 0.64037704, y: 0, z: 0}
+        outSlope: {x: 0.64037704, y: 0, z: 0}
+        tangentMode: 0
+      - time: 0.41666666
+        value: {x: -10.445053, y: 4.4, z: 10}
+        inSlope: {x: -3.780213, y: 0, z: 0}
+        outSlope: {x: -3.780213, y: 0, z: 0}
+        tangentMode: 0
+      - time: 0.5
+        value: {x: -10, y: 4.4, z: 10}
+        inSlope: {x: 5.3406367, y: 0, z: 0}
+        outSlope: {x: 5.3406367, y: 0, z: 0}
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Banner_Coin
   m_ScaleCurves:
   - curve:
       serializedVersion: 2
@@ -231,6 +258,12 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - path: 3542818357
+      attribute: 1
+      script: {fileID: 0}
+      classID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - path: 2071914206
       attribute: 1
       script: {fileID: 0}
       classID: 4
@@ -1063,6 +1096,76 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
     path: HighScore
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: -15
+        inSlope: 14.181817
+        outSlope: 14.181817
+        tangentMode: 10
+      - time: 0.36666667
+        value: -9.8
+        inSlope: 0.64037704
+        outSlope: 0.64037704
+        tangentMode: 10
+      - time: 0.41666666
+        value: -10.445053
+        inSlope: -3.780213
+        outSlope: -3.780213
+        tangentMode: 10
+      - time: 0.5
+        value: -10
+        inSlope: 5.3406367
+        outSlope: 5.3406367
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: Banner_Coin
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 4.4
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 0.5
+        value: 4.4
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: Banner_Coin
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 10
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 0.5
+        value: 10
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: Banner_Coin
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:

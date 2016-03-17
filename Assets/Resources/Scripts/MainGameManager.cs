@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using UnityEngine.SceneManagement;
 
 public class MainGameManager : MonoBehaviour {
 	public static Quaternion identity = new Quaternion (0f, 0f, 0f, 1f);
@@ -37,41 +38,29 @@ public class MainGameManager : MonoBehaviour {
 	public static GameObject[] Obstacle_Prefab_Array;
 	public static GameObject player;
 	public static GameObject scoreReadout;
+	public static GameObject coinReadout;
 	public static GameObject highScoreReadout;
 	public static GameObject clickWall;
 	public static Dictionary<string,Color> colors = new Dictionary<string, Color>();
 	private static ArrayList colors_array;
 	public static GameObject destroyed_particle;
 	public static bool canReset = false;
+	bool coin_adding = false;
+	int temp_coin_add_reference = 0;
 
 	public SaveManager save_manager;
 
 	AudioClip audiotemp = new AudioClip ();
 	public static int score;
+	public static int coins;
 	public static int HighScore;
 
 	// Use this for initialization
 	void Start () {
-		//save_manager = new SaveManager();
 		HighScore = SaveManager.GetHighScore();
+		coins = SaveManager.GetCoins ();
 		canReset = false;
-		colors.Clear ();
 
-		//add colors to color dictionary
-		colors.Add ("Gold", new Color(204,153,0));
-		colors.Add ("Grey", new Color(68,68,68));
-		colors.Add ("Red", new Color(153,51,0));
-		colors.Add ("Green", new Color(153,204,0));
-		colors.Add ("Purple", new Color(153,0,204));
-		colors.Add ("Blue", new Color(0,153,204));
-		colors.Add ("Mint", new Color(0,204,153));
-		colors.Add ("Pink", new Color(204,0,153));
-		//add colors to array
-		colors_array = new ArrayList();
-		colors_array.Clear ();
-		foreach(Color col in colors.Values){
-			colors_array.Add(col);
-		}
 		//reset 
 		line_number = 0;
 		speed = 5;
@@ -124,6 +113,8 @@ public class MainGameManager : MonoBehaviour {
 		scoreReadout.GetComponent<Animator> ().Play ("MainGame_Score_In");
 		highScoreReadout = GameObject.FindGameObjectWithTag ("HighScore");
 		highScoreReadout.GetComponent<TextMesh> ().text = HighScore.ToString ();
+		coinReadout = GameObject.FindGameObjectWithTag ("CoinBanner");
+		coinReadout.GetComponentInChildren<TextMesh> ().text = coins.ToString ();
 		clickWall = GameObject.FindGameObjectWithTag ("ClickWall");
 		player.transform.position = new Vector3 ((float)(root.x + player.GetComponent<SpriteRenderer> ().bounds.size.x * 0.3), root.y + (player.GetComponent<SpriteRenderer> ().bounds.size.y/2)+ line_segment.GetComponent<SpriteRenderer>().bounds.size.y/2, 0f);
 		starting_reference = Camera.main.transform.position.x - player.transform.position.x;
@@ -144,7 +135,7 @@ public class MainGameManager : MonoBehaviour {
 	void Update () {
 		//handle back button
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.LoadLevel("StartMenu");
+			SceneManager.LoadScene("StartMenu");
 		}
 		//handle obstacle names
 
@@ -184,6 +175,15 @@ public class MainGameManager : MonoBehaviour {
 
 			//change score text
 			score =(int)(( player.transform.position.x + starting_reference)/3);
+			//award coin for every 20 meters
+			if((float)score/20 == Mathf.Round(score/20) && score > 0 && coin_adding == false){
+				AddCoins(1);
+				temp_coin_add_reference = score + 1;
+				coin_adding = true;
+			}else if(score == temp_coin_add_reference)
+				coin_adding = false;
+			Destroy(GameObject.Find("AE"));
+			}
 			scoreReadout.GetComponent<TextMesh>().text = string.Format(score + " meters");
 			if(score > HighScore){
 				//High score (animations and stuff according to jay)
@@ -193,8 +193,8 @@ public class MainGameManager : MonoBehaviour {
 			 
 
 		}
-	}
-	 void AddLineSegmentInternal(){
+
+ void AddLineSegmentInternal(){
 			GameObject temp = Instantiate (line_segment, nextLinePos, identity) as GameObject;
 			temp.name = "LS_" + Number_Of_Line_Segments;
 			temp.GetComponent<MainGameLineHandler> ().containsObstacle = false;
@@ -254,7 +254,6 @@ public class MainGameManager : MonoBehaviour {
 
 	public static void Game_Over(float seconds_from_impact){
 		if (score >= HighScore) {
-			Debug.Log ("fire");
 			SaveManager.SetHighScore(HighScore);
 			SaveManager.Save();
 			//scoreReadout.GetComponent<TextMesh>().color = colors["Gold"];
@@ -272,7 +271,7 @@ public class MainGameManager : MonoBehaviour {
 	public static void Start_New(){
 	
 		player.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0f, 0f, 0f);
-		Application.LoadLevel ("MainGame");
+		SceneManager.LoadScene ("MainGame");
 	}
 	 void RunGameOver(){
 		foreach (Object obj in All_Obstacles) {
@@ -281,9 +280,33 @@ public class MainGameManager : MonoBehaviour {
 		canReset = true;
 		StartCoroutine ("AnimateScore");
 	}
+	public static void AddCoins(int coinsToAdd){
+		GameObject add_effect = Instantiate (Resources.Load ("Sprites/Ui/Particles/AddEffect") as GameObject, new Vector3 (Camera.main.transform.position.x, 2f, 0f), identity)as GameObject;
+		//add_effect.name = "AE";
+		coins += coinsToAdd;
+		coinReadout.GetComponentInChildren<TextMesh> ().text = coins.ToString ();
+		SaveManager.SetCoins (coins);
+	}
 	IEnumerator AnimateScore(){
+		GameObject Medal_Gold = Resources.Load("Sprites/Ui/Prefabs/Medal_Gold") as GameObject;
+		GameObject Medal_Silver = Resources.Load("Sprites/Ui/Prefabs/Medal_Silver") as GameObject;
+		GameObject Medal_Bronze = Resources.Load("Sprites/Ui/Prefabs/Medal_Bronze") as GameObject;
 		for (int score_tick = 1; score_tick <= score; score_tick++) {
 			scoreReadout.GetComponent<TextMesh>().text = (score_tick + " meters");
+			//handle medals
+			if (score_tick == 5) {
+				//award bronze medal
+				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
+				Bronze.transform.SetParent (Camera.main.transform);
+			} else if (score_tick == 25) {
+				//award silver medal
+				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
+				Silver.transform.SetParent (Camera.main.transform);
+			}else if (score_tick == 50) {
+				//award silver medal
+				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
+				Gold.transform.SetParent (Camera.main.transform);
+			}
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
