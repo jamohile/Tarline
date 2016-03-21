@@ -127,7 +127,7 @@ public class MainGameManager : MonoBehaviour {
 		AudioManager.Play_Audio (temp);	
 
 		//testing git upload
-
+		offset = Camera.main.transform.position.x - player.transform.position.x;
 	}
 
 
@@ -160,10 +160,11 @@ public class MainGameManager : MonoBehaviour {
 			}
 
 
-			if (player.transform.position.x > 0 - cameraSize.x/4) {
-				if(offset == 0){
-					offset = Camera.main.transform.position.x - player.transform.position.x;
+			if (player.transform.position.x > 0 - cameraSize.x / 4) {
+				if (offset == 0) {
+					//offset = Camera.main.transform.position.x - player.transform.position.x;
 				}
+			}
 				Camera.main.transform.position = new Vector3(player.transform.position.x + offset,0f,0f);
 
 				//update the measurement of distance between last and current potential obstacle
@@ -174,22 +175,24 @@ public class MainGameManager : MonoBehaviour {
 		
 
 			//change score text
-			score =(int)(( player.transform.position.x + starting_reference)/3);
+		if (current_game_state == game_state.Playing) {
+			score = (int)((player.transform.position.x + starting_reference) / 3);
 			//award coin for every 20 meters
-			if((float)score/20 == Mathf.Round(score/20) && score > 0 && coin_adding == false){
-				AddCoins(1);
+			if ((float)score / 20 == Mathf.Round (score / 20) && score > 0 && coin_adding == false) {
+				AddCoins (1);
 				temp_coin_add_reference = score + 1;
 				coin_adding = true;
-			}else if(score == temp_coin_add_reference)
+			} else if (score == temp_coin_add_reference) {
 				coin_adding = false;
-			Destroy(GameObject.Find("AE"));
+				Destroy (GameObject.Find ("AE"));
 			}
-			scoreReadout.GetComponent<TextMesh>().text = string.Format(score + " meters");
-			if(score > HighScore){
+			scoreReadout.GetComponent<TextMesh> ().text = string.Format (score + " meters");
+			if (score > HighScore) {
 				//High score (animations and stuff according to jay)
 				HighScore = score;
-				highScoreReadout.GetComponent<TextMesh>().text = HighScore.ToString();
+				highScoreReadout.GetComponent<TextMesh> ().text = HighScore.ToString ();
 			}
+		}
 			 
 
 		}
@@ -292,9 +295,10 @@ public class MainGameManager : MonoBehaviour {
 		GameObject Medal_Silver = Resources.Load("Sprites/Ui/Prefabs/Medal_Silver") as GameObject;
 		GameObject Medal_Bronze = Resources.Load("Sprites/Ui/Prefabs/Medal_Bronze") as GameObject;
 		for (int score_tick = 1; score_tick <= score; score_tick++) {
-			scoreReadout.GetComponent<TextMesh>().text = (score_tick + " meters");
+			Debug.Log ("Hello");
+			scoreReadout.GetComponent<TextMesh>().text =(score_tick + " meters");
 			//handle medals
-			if (score_tick == 5) {
+			if (score_tick == 10) {
 				//award bronze medal
 				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
 				Bronze.transform.SetParent (Camera.main.transform);
