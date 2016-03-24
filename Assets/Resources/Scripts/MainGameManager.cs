@@ -132,6 +132,14 @@ public class MainGameManager : MonoBehaviour {
 
 
 	// Update is called once per frame
+	void LateUpdate(){
+		//overide animation values for camera
+		if (player.transform.position.x > 0 - cameraSize.x / 4 && current_game_state == game_state.Playing) {
+			Camera.main.transform.position = new Vector3 (player.transform.position.x + cameraSize.x / 4, 0f, 0f);
+		} else if (player.transform.position.x > 0 - cameraSize.x / 4) {
+			Camera.main.transform.position = new Vector3 (player.transform.position.x + cameraSize.x / 4, Camera.main.transform.position.y, 0f);
+		}
+	}
 	void Update () {
 		//handle back button
 		if (Input.GetKeyDown (KeyCode.Escape)) {
@@ -165,7 +173,7 @@ public class MainGameManager : MonoBehaviour {
 					//offset = Camera.main.transform.position.x - player.transform.position.x;
 				}
 			}
-				Camera.main.transform.position = new Vector3(player.transform.position.x + offset,0f,0f);
+				
 
 				//update the measurement of distance between last and current potential obstacle
 				current_potential_space += player.transform.position.x - last_player_position;
