@@ -8,20 +8,40 @@ public class ClickHandler : MonoBehaviour {
 
 	void OnMouseDown(){
 		switch (gameObject.name) {
-		case "Play_Gold":
+		case "Play":
 			Scene_To_Load = "MainGame";
 			break;
-		//case "Settings_Mint":
-			//Scene_To_Load = "Settings";
-			//break;
-		//case "Leaderboards_Blue":
-		//	Scene_To_Load = "Leaderboards";
-		//	break;
+		case "Home_Up":
+			Scene_To_Load = "StartMenu";
+			Change_Scene ();
+			break;
+
+		case "Characters":
+			Scene_To_Load = "Characters";
+			Change_Scene ();
+			break;
 		}
 		Animator transition = Camera.main.GetComponent<Animator> ();
 		transition.Play ("StartMenu_Camera_RotateAway");
 
 	}
+	void OnMouseUp(){
+		switch (gameObject.name) {
+		case "Retry_Up":
+			MainGameManager.Start_New ();
+			break;
+		case "Home_Up":
+			Scene_To_Load = "StartMenu";
+			Change_Scene ();
+			break;
+		
+		case "Characters_Up":
+			Scene_To_Load = "Characters";
+			Change_Scene ();
+			break;
+		}
+	}
+
 
 	public void Change_Scene(){
 		SceneManager.LoadScene (Scene_To_Load);

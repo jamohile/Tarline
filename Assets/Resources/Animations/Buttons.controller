@@ -34,9 +34,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.24999994
-  m_TransitionOffset: 0
-  m_ExitTime: 0.695958
+  m_TransitionDuration: 0.06933132
+  m_TransitionOffset: 0.0125078205
+  m_ExitTime: 0.7793435
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -73,7 +73,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: StartMenu_Buttons_Pulsate
-  m_Speed: 0.5
+  m_Speed: 0.3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -125,10 +125,10 @@ AnimatorStateMachine:
     m_Position: {x: 24, y: 168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110273498}
-    m_Position: {x: 204, y: 228, z: 0}
+    m_Position: {x: 228, y: 228, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110253144}
-    m_Position: {x: 24, y: 300, z: 0}
+    m_Position: {x: 24, y: 312, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

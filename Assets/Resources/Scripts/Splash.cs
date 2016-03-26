@@ -37,12 +37,14 @@ public class Splash : MonoBehaviour {
 			alpha-= animationTime/100;
 
 			if (alpha < 0.05){
+				
 				Start_Game();
 			}
 		}
 	}
 
 	void Start_Game(){
+		logo_spriteRenderer.color = new Color (1f, 1f, 1f, 0f);
 		SceneManager.LoadScene("StartMenu");
 	}
 

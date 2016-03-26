@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: f83d1284796ca7a4fa732874066744d8
-timeCreated: 1458965202
+guid: a57a3b6bb6bd17a409834dfa4b17d6c8
+timeCreated: 1458961941
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - Retry_Down: {fileID: 21300000, guid: bd404655b90840e418927c51dd96888f, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

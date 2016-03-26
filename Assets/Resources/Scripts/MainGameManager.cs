@@ -73,8 +73,6 @@ public class MainGameManager : MonoBehaviour {
 		line_segment = Resources.Load("Sprites/Line/Prefabs/RoundedLine") as GameObject;
 		line_segment_width = line_segment.GetComponent<SpriteRenderer> ().bounds.size.x + 2*line_padding;
 
-		line = GameObject.Find ("Line");
-		line.transform.position = root;
 		Number_Of_Line_Segments = 0;
 		//instantiate obstacle array
 		Obstacle_Prefab_Array = new GameObject[number_of_obstacle_types];
@@ -194,7 +192,11 @@ public class MainGameManager : MonoBehaviour {
 				coin_adding = false;
 				Destroy (GameObject.Find ("AE"));
 			}
-			scoreReadout.GetComponent<TextMesh> ().text = string.Format (score + " meters");
+			if (score != 1) {
+				scoreReadout.GetComponent<TextMesh> ().text = (score + " meters");
+			} else {
+				scoreReadout.GetComponent<TextMesh> ().text = (score + " meter");
+			}
 			if (score > HighScore) {
 				//High score (animations and stuff according to jay)
 				HighScore = score;
@@ -285,6 +287,7 @@ public class MainGameManager : MonoBehaviour {
 		SceneManager.LoadScene ("MainGame");
 	}
 	 void RunGameOver(){
+		GameObject Colour_Particles = Instantiate (Resources.Load ("Sprites/Ui/Particles/ColourParticles") as GameObject, new Vector3 (Camera.main.transform.position.x, 4f, 11f), identity)as GameObject;
 		foreach (Object obj in All_Obstacles) {
 			Destroy(obj);
 		}
@@ -303,21 +306,21 @@ public class MainGameManager : MonoBehaviour {
 		GameObject Medal_Silver = Resources.Load("Sprites/Ui/Prefabs/Medal_Silver") as GameObject;
 		GameObject Medal_Bronze = Resources.Load("Sprites/Ui/Prefabs/Medal_Bronze") as GameObject;
 		for (int score_tick = 1; score_tick <= score; score_tick++) {
-			Debug.Log ("Hello");
-			scoreReadout.GetComponent<TextMesh>().text =(score_tick + " meters");
+			if (score_tick != 1) {
+				scoreReadout.GetComponent<TextMesh> ().text = (score_tick + " meters");
+			} else {
+				scoreReadout.GetComponent<TextMesh> ().text = (score_tick + " meter");
+			}
 			//handle medals
 			if (score_tick == 10) {
 				//award bronze medal
-				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
-				Bronze.transform.SetParent (Camera.main.transform);
+				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
 			} else if (score_tick == 25) {
 				//award silver medal
-				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
-				Silver.transform.SetParent (Camera.main.transform);
+				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x,3.9f, 0f), identity) as GameObject;
 			}else if (score_tick == 50) {
 				//award silver medal
-				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, -0.1f, 0f), identity) as GameObject;
-				Gold.transform.SetParent (Camera.main.transform);
+				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
 			}
 			yield return new WaitForSeconds(0.1f);
 		}

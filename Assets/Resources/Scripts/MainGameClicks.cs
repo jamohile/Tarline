@@ -3,9 +3,11 @@ using System.Collections;
 
 public class MainGameClicks : MonoBehaviour {
 	GameObject player;
+	public Sprite Retry_Down;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
+	//	Retry_Down = Resources.Load ("Sprites/Ui/Retry_Up") as Sprite;
 	}
 	
 	// Update is called once per frame
@@ -29,12 +31,12 @@ public class MainGameClicks : MonoBehaviour {
 				
 			}
 			break;
+		case MainGameManager.game_state.GameOver:
+
+			//GameObject.FindGameObjectWithTag ("RetryButton").GetComponent<SpriteRenderer> ().sprite = Retry_Down;
+			//Debug.Break ();
+			break;
 
 	}
-	}
-	void OnMouseUp(){
-		if (MainGameManager.current_game_state == MainGameManager.game_state.GameOver && MainGameManager.canReset == true) {
-			MainGameManager.Start_New();
-		}
 	}
 }
