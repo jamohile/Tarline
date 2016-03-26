@@ -7,35 +7,43 @@ public class ClickHandler : MonoBehaviour {
 	// Handle Click events
 
 	void OnMouseDown(){
-		switch (gameObject.name) {
-		case "Play":
+		switch (gameObject.tag) {
+		case "PlayButton":
 			Scene_To_Load = "MainGame";
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Play_Down");
 			break;
-		case "Home_Up":
+		case "CharactersButton":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Characters_Down");
+			break;
+		case "RetryButton":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Retry_Down");
+			break;
+		case "HomeButton":
+			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Home_Down");
+			break;
+		case "SettingsButton":
 			Scene_To_Load = "StartMenu";
-			Change_Scene ();
-			break;
-
-		case "Characters":
-			Scene_To_Load = "Characters";
-			Change_Scene ();
+			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Settings_Down");
 			break;
 		}
-		Animator transition = Camera.main.GetComponent<Animator> ();
-		transition.Play ("StartMenu_Camera_RotateAway");
 
 	}
 	void OnMouseUp(){
-		switch (gameObject.name) {
-		case "Retry_Up":
+		if (SceneManager.GetActiveScene ().name == "StartMenu") {
+			Animator transition = Camera.main.GetComponent<Animator> ();
+			transition.Play ("StartMenu_Camera_RotateAway");
+		}
+
+		switch (gameObject.tag) {
+		case "RetryButton":
 			MainGameManager.Start_New ();
 			break;
-		case "Home_Up":
+		case "HomeButton":
 			Scene_To_Load = "StartMenu";
 			Change_Scene ();
 			break;
 		
-		case "Characters_Up":
+		case "CharactersButton":
 			Scene_To_Load = "Characters";
 			Change_Scene ();
 			break;

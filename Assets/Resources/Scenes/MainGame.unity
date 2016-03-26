@@ -692,7 +692,7 @@ GameObject:
   - 60: {fileID: 1301520127}
   m_Layer: 0
   m_Name: Characters_Up
-  m_TagString: Untagged
+  m_TagString: CharactersButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1095,7 +1095,7 @@ GameObject:
   - 114: {fileID: 1781836404}
   m_Layer: 0
   m_Name: Home_Up
-  m_TagString: Untagged
+  m_TagString: HomeButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

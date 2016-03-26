@@ -7,7 +7,6 @@ public class MainGameClicks : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
-	//	Retry_Down = Resources.Load ("Sprites/Ui/Retry_Up") as Sprite;
 	}
 	
 	// Update is called once per frame
@@ -30,11 +29,6 @@ public class MainGameClicks : MonoBehaviour {
 				player.GetComponent<Animator> ().Play ("MainGame_TarCar_RotateToUp");
 				
 			}
-			break;
-		case MainGameManager.game_state.GameOver:
-
-			//GameObject.FindGameObjectWithTag ("RetryButton").GetComponent<SpriteRenderer> ().sprite = Retry_Down;
-			//Debug.Break ();
 			break;
 
 	}

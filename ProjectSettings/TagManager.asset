@@ -16,6 +16,9 @@ TagManager:
   - CoinBanner
   - RetryButton
   - HomeButton
+  - CharactersButton
+  - PlayButton
+  - SettingsButton
   layers:
   - Default
   - TransparentFX
