@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class MainGamePlayerHandler : MonoBehaviour {
 	enum contact_position{
 		Back_Of_Back,

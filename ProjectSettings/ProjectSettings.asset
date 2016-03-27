@@ -90,7 +90,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.ScareCrownStudios.Tarline
-  bundleVersion: 1.0
+  bundleVersion: 0.9.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
@@ -158,8 +158,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/ScareCrownStudios/Data/Certificates/ScareCrownStudios_Android.keystore
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: D:/ScareCrownStudios/Data/Certificates/ScareCrownStudios.Tarline.keystore
+  AndroidKeyaliasName: tarline
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

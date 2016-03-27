@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine.SceneManagement;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class MainGameManager : MonoBehaviour {
 	public static Quaternion identity = new Quaternion (0f, 0f, 0f, 1f);
@@ -55,11 +57,17 @@ public class MainGameManager : MonoBehaviour {
 	public static int coins;
 	public static int HighScore;
 
+	public static bool isFirstGame = false;
+	public static bool GPGS_Logged_In = false;
+
 	// Use this for initialization
 	void Start () {
+		GPGS_Logged_In = Social.localUser.authenticated;
+		Debug.Log (GPGS_Logged_In);
 		HighScore = SaveManager.GetHighScore();
 		coins = SaveManager.GetCoins ();
 		canReset = false;
+		isFirstGame = SaveManager.IsFirstTime ();
 
 		//reset 
 		line_number = 0;
@@ -269,6 +277,7 @@ public class MainGameManager : MonoBehaviour {
 		if (score >= HighScore) {
 			SaveManager.SetHighScore(HighScore);
 			SaveManager.Save();
+			GPS.ReportHighScore (score);
 			//scoreReadout.GetComponent<TextMesh>().color = colors["Gold"];
 		}
 		//Destruction sound - Tyler
@@ -288,6 +297,11 @@ public class MainGameManager : MonoBehaviour {
 	}
 	 void RunGameOver(){
 		GameObject Colour_Particles = Instantiate (Resources.Load ("Sprites/Ui/Particles/ColourParticles") as GameObject, new Vector3 (Camera.main.transform.position.x, 4f, 11f), identity)as GameObject;
+		//award first game achievement if applicable!
+		if (isFirstGame == true) {
+			GPS.AwardAchievement ("FirstGame");
+		}
+
 		foreach (Object obj in All_Obstacles) {
 			Destroy(obj);
 		}
@@ -314,12 +328,15 @@ public class MainGameManager : MonoBehaviour {
 			//handle medals
 			if (score_tick == 10) {
 				//award bronze medal
+				GPS.AwardAchievement("Bronze");
 				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
 			} else if (score_tick == 25) {
 				//award silver medal
+				GPS.AwardAchievement("Silver");
 				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x,3.9f, 0f), identity) as GameObject;
 			}else if (score_tick == 50) {
 				//award silver medal
+				GPS.AwardAchievement("Gold");
 				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
 			}
 			yield return new WaitForSeconds(0.1f);
@@ -327,4 +344,3 @@ public class MainGameManager : MonoBehaviour {
 	}
 	
 }
-//Jay+Clara forever

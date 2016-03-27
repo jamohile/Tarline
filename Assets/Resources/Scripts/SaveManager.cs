@@ -2,27 +2,26 @@
 using System.Collections;
 
 public class SaveManager : MonoBehaviour {
-	private bool has_been_opened_before = false;
+	public static bool has_been_opened_before = false;
 	// Use this for initialization
 	void Start () {
 		if (PlayerPrefs.HasKey ("OPENED_BEFORE") == true) {
-			has_been_opened_before = false; // indicates the game has been opened before
+			has_been_opened_before = true; // indicates the game has been opened before
 		} else {
 			PlayerPrefs.SetInt ("OPENED_BEFORE",1);
 			//first time setup
 			PlayerPrefs.SetInt("HighScore",0);
 			PlayerPrefs.SetInt ("Coins", 0);
-			has_been_opened_before =  true;
+			has_been_opened_before =  false;
 			PlayerPrefs.Save();
 		}
 	}
-	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-	bool IsFirstTime(){
+	public static bool IsFirstTime(){
 		return has_been_opened_before;
 	}
 	public static int GetHighScore(){

@@ -19,6 +19,8 @@ TagManager:
   - CharactersButton
   - PlayButton
   - SettingsButton
+  - AchievementsButton
+  - LeaderboardsButton
   layers:
   - Default
   - TransparentFX

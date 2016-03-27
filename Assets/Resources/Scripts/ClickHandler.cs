@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class ClickHandler : MonoBehaviour {
 	public static string Scene_To_Load = "";
@@ -22,8 +24,16 @@ public class ClickHandler : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Home_Down");
 			break;
 		case "SettingsButton":
-			Scene_To_Load = "StartMenu";
+			Scene_To_Load = "Settings";
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Settings_Down");
+			break;
+		case "AchivementsButton":
+			Scene_To_Load = "StartMenu";
+			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Achievements_Down");
+			break;
+		case "LeaderboardsButton":
+			Scene_To_Load = "StartMenu";
+			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Leaderboard_Down");
 			break;
 		}
 
@@ -46,6 +56,37 @@ public class ClickHandler : MonoBehaviour {
 		case "CharactersButton":
 			Scene_To_Load = "Characters";
 			Change_Scene ();
+			break;
+		case "AchivementsButton":
+			if (Social.localUser.authenticated == true) {
+				Social.ShowAchievementsUI ();
+			} else {
+				Social.localUser.Authenticate ((bool success) => {
+					if (success) {
+						Debug.Log ("Login Succesful");
+						MainGameManager.GPGS_Logged_In = true;
+					} else {
+						Debug.Log ("Login Failed");
+					}
+
+				});
+			}
+			break;
+		case "LeaderboardsButton":
+			if (Social.localUser.authenticated == true) {
+				Social.ShowLeaderboardUI ();
+			} else {
+				Social.localUser.Authenticate ((bool success) => {
+					if (success) {
+						Debug.Log ("Login Succesful");
+						MainGameManager.GPGS_Logged_In = true;
+					} else {
+						Debug.Log ("Login Failed");
+					}
+
+				});
+			}
+			break;
 			break;
 		}
 	}

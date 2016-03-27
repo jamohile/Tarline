@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class Splash : MonoBehaviour {
 	SpriteRenderer logo_spriteRenderer;
@@ -16,7 +18,7 @@ public class Splash : MonoBehaviour {
 		logo_spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
 		animationTime = 1f;
 		//manage saved data, will be done later
-
+		MainGameManager.GPGS_Logged_In = true;
 
 	}
 	
@@ -45,6 +47,22 @@ public class Splash : MonoBehaviour {
 
 	void Start_Game(){
 		logo_spriteRenderer.color = new Color (1f, 1f, 1f, 0f);
+		//configure the google play games platform
+		PlayGamesPlatform.Activate();
+		//login
+		Social.localUser.Authenticate ((bool success) => {
+			if (success) {
+				Debug.Log ("Login Succesful");
+				MainGameManager.GPGS_Logged_In = true;
+			} else {
+				Debug.Log ("Login Failed");
+			}
+
+		});
+
+
+
+
 		SceneManager.LoadScene("StartMenu");
 	}
 
