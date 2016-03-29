@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class StartMenuManager : MonoBehaviour {
 	public static GameObject coinReadout;
@@ -11,6 +13,19 @@ public class StartMenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		PlayGamesPlatform.Activate();
+		//login
+		Social.localUser.Authenticate ((bool success) => {
+			if (success) {
+				Debug.Log ("Login Succesful");
+				MainGameManager.GPGS_Logged_In = true;
+			} else {
+				Debug.Log ("Login Failed");
+			}
+
+		});
+
+
 		HighScore = SaveManager.GetHighScore();
 		coins = SaveManager.GetCoins ();
 

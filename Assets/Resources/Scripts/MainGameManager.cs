@@ -289,6 +289,8 @@ public class MainGameManager : MonoBehaviour {
 		line_number = 0;
 		speed = 5;
 		Camera.main.GetComponent<Animator> ().Play ("MainGame_Camera_ZoomOut");
+		GameObject Colour_Particles = Instantiate (Resources.Load ("Sprites/Ui/Particles/ColourParticles") as GameObject, new Vector3 (Camera.main.transform.position.x, 4f, 11f), identity)as GameObject;
+
 	}
 	public static void Start_New(){
 	
@@ -296,8 +298,7 @@ public class MainGameManager : MonoBehaviour {
 		SceneManager.LoadScene ("MainGame");
 	}
 	 void RunGameOver(){
-		GameObject Colour_Particles = Instantiate (Resources.Load ("Sprites/Ui/Particles/ColourParticles") as GameObject, new Vector3 (Camera.main.transform.position.x, 4f, 11f), identity)as GameObject;
-		//award first game achievement if applicable!
+			//award first game achievement if applicable!
 		if (isFirstGame == true) {
 			GPS.AwardAchievement ("FirstGame");
 		}
@@ -328,16 +329,16 @@ public class MainGameManager : MonoBehaviour {
 			//handle medals
 			if (score_tick == 10) {
 				//award bronze medal
-				GPS.AwardAchievement("Bronze");
 				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+				GPS.AwardAchievement("Bronze");
 			} else if (score_tick == 25) {
 				//award silver medal
-				GPS.AwardAchievement("Silver");
 				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x,3.9f, 0f), identity) as GameObject;
+				GPS.AwardAchievement("Silver");
 			}else if (score_tick == 50) {
 				//award silver medal
-				GPS.AwardAchievement("Gold");
 				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+				GPS.AwardAchievement("Gold");
 			}
 			yield return new WaitForSeconds(0.1f);
 		}

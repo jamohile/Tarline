@@ -24,8 +24,8 @@ public class GPS : MonoBehaviour {
 	}
 	public static void AwardAchievement(string achievementName){
 		if (Social.localUser.authenticated == true) {
-			Social.ReportProgress (achievements [achievementName], 100.0f, (bool success) => {
-				//achievement posted succesfully
+			PlayGamesPlatform.Instance.ReportProgress (achievements [achievementName], 100.0f, (bool success) => {
+				//succesful post
 			});
 		}
 	}

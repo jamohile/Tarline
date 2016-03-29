@@ -27,7 +27,7 @@ public class ClickHandler : MonoBehaviour {
 			Scene_To_Load = "Settings";
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Settings_Down");
 			break;
-		case "AchivementsButton":
+		case "AchievementsButton":
 			Scene_To_Load = "StartMenu";
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Achievements_Down");
 			break;
@@ -57,9 +57,9 @@ public class ClickHandler : MonoBehaviour {
 			Scene_To_Load = "Characters";
 			Change_Scene ();
 			break;
-		case "AchivementsButton":
+		case "AchievementsButton":
 			if (Social.localUser.authenticated == true) {
-				Social.ShowAchievementsUI ();
+				PlayGamesPlatform.Instance.ShowAchievementsUI ();
 			} else {
 				Social.localUser.Authenticate ((bool success) => {
 					if (success) {
@@ -68,7 +68,6 @@ public class ClickHandler : MonoBehaviour {
 					} else {
 						Debug.Log ("Login Failed");
 					}
-
 				});
 			}
 			break;
