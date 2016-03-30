@@ -62,6 +62,7 @@ public class MainGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		GPS playservices = new GPS ();
 		GPGS_Logged_In = Social.localUser.authenticated;
 		Debug.Log (GPGS_Logged_In);
 		HighScore = SaveManager.GetHighScore();

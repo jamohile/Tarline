@@ -11,6 +11,7 @@ public class ClickHandler : MonoBehaviour {
 	void OnMouseDown(){
 		switch (gameObject.tag) {
 		case "PlayButton":
+			GPS.AwardAchievement ("FirstGame");
 			Scene_To_Load = "MainGame";
 			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Play_Down");
 			break;
@@ -94,6 +95,7 @@ public class ClickHandler : MonoBehaviour {
 	public void Change_Scene(){
 		SceneManager.LoadScene (Scene_To_Load);
 	}
+
 
 }
 
