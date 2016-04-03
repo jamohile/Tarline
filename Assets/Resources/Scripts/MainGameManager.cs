@@ -39,6 +39,7 @@ public class MainGameManager : MonoBehaviour {
 	private int number_of_obstacle_types = 7;
 	public static GameObject[] Obstacle_Prefab_Array;
 	public static GameObject player;
+	public static string currentCharacter;
 	public static GameObject scoreReadout;
 	public static GameObject coinReadout;
 	public static GameObject highScoreReadout;
@@ -62,14 +63,13 @@ public class MainGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GPS playservices = new GPS ();
 		GPGS_Logged_In = Social.localUser.authenticated;
 		Debug.Log (GPGS_Logged_In);
 		HighScore = SaveManager.GetHighScore();
 		coins = SaveManager.GetCoins ();
 		canReset = false;
 		isFirstGame = SaveManager.IsFirstTime ();
-
+		currentCharacter = SaveManager.GetCharacter ();
 		//reset 
 		line_number = 0;
 		speed = 5;
@@ -114,7 +114,8 @@ public class MainGameManager : MonoBehaviour {
 		nextLinePos.z = -1f;
 
 		//position the car
-		player = GameObject.FindGameObjectWithTag ("Player");
+		player = Resources.Load("Sprites/Player/Prefabs/" + currentCharacter) as GameObject;//Instantiate(Resources.Load("Sprites/Player/Prefabs/TarCar") as GameObject,new Vector3 ((float)(root.x + player.GetComponent<SpriteRenderer> ().bounds.size.x * 0.3), root.y + (player.GetComponent<SpriteRenderer> ().bounds.size.y/2)+ line_segment.GetComponent<SpriteRenderer>().bounds.size.y/2, 0f),identity) as GameObject;//GameObject.FindGameObjectWithTag ("Player");
+		player = Instantiate(player,new Vector3(0f,0f,0f),identity) as GameObject;
 		player.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0f, 0f, 0f);
 		scoreReadout = GameObject.FindGameObjectWithTag ("Score");
 		scoreReadout.GetComponent<Animator> ().Play ("MainGame_Score_In");
@@ -123,7 +124,7 @@ public class MainGameManager : MonoBehaviour {
 		coinReadout = GameObject.FindGameObjectWithTag ("CoinBanner");
 		coinReadout.GetComponentInChildren<TextMesh> ().text = coins.ToString ();
 		clickWall = GameObject.FindGameObjectWithTag ("ClickWall");
-		player.transform.position = new Vector3 ((float)(root.x + player.GetComponent<SpriteRenderer> ().bounds.size.x * 0.3), root.y + (player.GetComponent<SpriteRenderer> ().bounds.size.y/2)+ line_segment.GetComponent<SpriteRenderer>().bounds.size.y/2, 0f);
+		player.transform.position = new Vector3 ((float)(root.x + player.GetComponentInChildren<SpriteRenderer> ().bounds.size.x * 0.3), root.y + (player.GetComponentInChildren<SpriteRenderer> ().bounds.size.y/2)+ line_segment.GetComponentInChildren<SpriteRenderer>().bounds.size.y/2, 0f);
 		starting_reference = Camera.main.transform.position.x - player.transform.position.x;
 		AddLineSegments(false);
 		current_game_state = game_state.PreStart;
@@ -172,6 +173,9 @@ public class MainGameManager : MonoBehaviour {
 				speed += (score/speed)/1000;
 				Vector3 tempVel = new Vector3 (speed, 0f, 0f);
 				player.GetComponent<Rigidbody2D> ().velocity = tempVel;
+
+				// adjust speed of "flip" animation
+				//player.GetComponentInChildren<Animator>().speed = speed/6;//scales speed proporitanetly to movement speed
 			}
 
 
@@ -241,12 +245,12 @@ public class MainGameManager : MonoBehaviour {
 		}
 	void OnMouseDown(){
 	//handle normal rotate clicks
-		if (player.GetComponent<Animator> ().GetBool ("RotatedUp") == true) {
-			player.GetComponent<Animator> ().SetBool ("RotatedUp", false);
-			player.GetComponent<Animator> ().Play ("MainGame_TarCar_RotateToDown");
+		if (player.GetComponentInChildren<Animator> ().GetBool ("RotatedUp") == true) {
+			player.GetComponentInChildren<Animator> ().SetBool ("RotatedUp", false);
+			player.GetComponentInChildren<Animator> ().Play ("MainGame_TarCar_RotateToDown");
 		} else {
-			player.GetComponent<Animator> ().SetBool ("RotatedUp", true);
-			player.GetComponent<Animator> ().Play ("MainGame_TarCar_RotateToUp");
+			player.GetComponentInChildren<Animator> ().SetBool ("RotatedUp", true);
+			player.GetComponentInChildren<Animator> ().Play ("MainGame_TarCar_RotateToUp");
 
 		}
 	}
@@ -274,7 +278,7 @@ public class MainGameManager : MonoBehaviour {
 		}
 	}
 
-	public static void Game_Over(float seconds_from_impact){
+	public static void Game_Over(){
 		if (score >= HighScore) {
 			SaveManager.SetHighScore(HighScore);
 			SaveManager.Save();
@@ -292,6 +296,11 @@ public class MainGameManager : MonoBehaviour {
 		Camera.main.GetComponent<Animator> ().Play ("MainGame_Camera_ZoomOut");
 		GameObject Colour_Particles = Instantiate (Resources.Load ("Sprites/Ui/Particles/ColourParticles") as GameObject, new Vector3 (Camera.main.transform.position.x, 4f, 11f), identity)as GameObject;
 
+	}
+	public static void Revive(){
+		Vector3 tempVel = new Vector3 ((float)(speed * 0.6), 0f, 0f);
+		current_game_state = game_state.Playing;
+		player.GetComponent<Rigidbody2D> ().velocity = tempVel;
 	}
 	public static void Start_New(){
 	
@@ -344,5 +353,5 @@ public class MainGameManager : MonoBehaviour {
 			yield return new WaitForSeconds(0.1f);
 		}
 	}
-	
+
 }

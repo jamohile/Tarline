@@ -9,6 +9,7 @@ public class StartMenuManager : MonoBehaviour {
 
 	public static int coins;
 	public static int HighScore;
+	public static string currentCharacter;
 
 
 	// Use this for initialization
@@ -28,6 +29,7 @@ public class StartMenuManager : MonoBehaviour {
 
 		HighScore = SaveManager.GetHighScore();
 		coins = SaveManager.GetCoins ();
+		currentCharacter = SaveManager.GetCharacter();
 
 		highScoreReadout = GameObject.FindGameObjectWithTag ("HighScore");
 		highScoreReadout.GetComponent<TextMesh> ().text = HighScore.ToString ();

@@ -20,6 +20,18 @@ public class GPS : MonoBehaviour {
 		case "FirstGame":
 			achievementString = GPGS_CONTANTS.achievement_first_game;
 			break;
+		case "Bronze":
+			achievementString = GPGS_CONTANTS.achievement_bronze;
+			break;
+		case "Silver":
+			achievementString = GPGS_CONTANTS.achievement_silver;
+			break;
+		case "Gold":
+			achievementString = GPGS_CONTANTS.achievement_gold;
+			break;
+		case "Platinum":
+			achievementString = GPGS_CONTANTS.achievement_gold;
+			break;
 		}
 		if (Social.localUser.authenticated == true) {
 			Social.ReportProgress (achievementString, 100.0f, (bool success) => {

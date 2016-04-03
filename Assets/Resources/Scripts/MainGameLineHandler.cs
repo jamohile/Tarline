@@ -23,7 +23,7 @@ public class MainGameLineHandler : MonoBehaviour {
 
 		}
 		//error check the booleans
-		if (gameObject.transform.position.x < MainGameManager.player.transform.position.x - MainGameManager.player.GetComponent<SpriteRenderer> ().bounds.size.x / 2) {
+		if (gameObject.transform.position.x < MainGameManager.player.transform.position.x - MainGameManager.player.GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2) {
 			if(beenDestroyed == false){
 
 				if (containsObstacle == false) {

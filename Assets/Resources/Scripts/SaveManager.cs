@@ -12,6 +12,8 @@ public class SaveManager : MonoBehaviour {
 			//first time setup
 			PlayerPrefs.SetInt("HighScore",0);
 			PlayerPrefs.SetInt ("Coins", 0);
+			PlayerPrefs.SetString ("Character", "TarCar");
+			UnlockCharacter ("TarCar");
 			has_been_opened_before =  false;
 			PlayerPrefs.Save();
 		}
@@ -34,9 +36,36 @@ public class SaveManager : MonoBehaviour {
 	public static int GetCoins(){
 		return PlayerPrefs.GetInt("Coins");
 	}
+	public static string GetCharacter(){
+		if (PlayerPrefs.GetString ("Character") == "") {
+			SetCharacter ("TarCar");
+		}
+		return PlayerPrefs.GetString("Character");
+	}
+	public static void UnlockCharacter(string character){
+		PlayerPrefs.SetString (character, "owned");
+		PlayerPrefs.Save ();
+	}
+	public static void SetCharacter(string character){
+		PlayerPrefs.SetString ("Character", character);
+		PlayerPrefs.Save ();
+	}
 	public static void SetCoins(int coins){
 		PlayerPrefs.SetInt ("Coins", coins);
 		PlayerPrefs.Save ();
+	}
+	public static bool HasCharacter(string character){
+		if(PlayerPrefs.HasKey(character)){
+			if (PlayerPrefs.GetString (character) == "owned") {
+				return true;
+			} else {
+				return false;
+			}
+		}else{
+			PlayerPrefs.SetString (character, "");
+			PlayerPrefs.Save ();
+			return false;
+		}
 	}
 	public static void Save(){
 		PlayerPrefs.Save ();

@@ -36,6 +36,21 @@ public class ClickHandler : MonoBehaviour {
 			Scene_To_Load = "StartMenu";
 			gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite> ("Sprites/Ui/Leaderboard_Down");
 			break;
+		case "ChooseCharacterButton":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Characters_Choose_Down");
+			break;
+		case "RightScroll":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Scroll_Down");
+			break;
+		case "LeftScroll":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Scroll_Down");
+			break;
+		case "ReviveButton":
+			NotificationManager.chosen = NotificationManager.optionChosen.revive;
+			break;
+		case "NopeButton":
+			NotificationManager.chosen = NotificationManager.optionChosen.norevive;
+			break;
 		}
 
 	}
@@ -87,6 +102,18 @@ public class ClickHandler : MonoBehaviour {
 				});
 			}
 			break;
+		case "RightScroll":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Scroll_Up");
+			CharacterMenuManager.RightScroll ();
+			break;
+		case "LeftScroll":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Scroll_Up");
+			CharacterMenuManager.LeftScroll ();
+			break;
+		case "ChooseCharacterButton":
+			gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprites/Ui/Characters_Chosen");
+			SaveManager.SetCharacter (CharacterMenuManager.currentCharacter);
+			CharacterMenuManager.chosenCharacter = CharacterMenuManager.currentCharacter;
 			break;
 		}
 	}

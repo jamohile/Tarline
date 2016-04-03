@@ -6,7 +6,6 @@ public class MainGameClicks : MonoBehaviour {
 	public Sprite Retry_Down;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	// Update is called once per frame
@@ -21,12 +20,14 @@ public class MainGameClicks : MonoBehaviour {
 			MainGameManager.Start_Game();
 			break;
 			case MainGameManager.game_state.Playing:
-			if (player.GetComponent<Animator> ().GetBool ("RotatedUp") == true) {
-				player.GetComponent<Animator> ().SetBool ("RotatedUp", false);
-				player.GetComponent<Animator> ().Play ("MainGame_TarCar_RotateToDown");
+			if (MainGameManager.player.GetComponentInChildren<Animator> ().GetBool ("RotatedUp") == true) {
+				MainGameManager.player.GetComponentInChildren<Animator> ().SetBool ("RotatedUp", false);
+				MainGameManager.player.GetComponentInChildren<Animator> ().Play ("ToUp");
+
 			} else {
-				player.GetComponent<Animator> ().SetBool ("RotatedUp", true);
-				player.GetComponent<Animator> ().Play ("MainGame_TarCar_RotateToUp");
+				MainGameManager.player.GetComponentInChildren<Animator> ().SetBool ("RotatedUp", true);
+				MainGameManager.player.GetComponentInChildren<Animator> ().Play ("ToDown");
+
 				
 			}
 			break;

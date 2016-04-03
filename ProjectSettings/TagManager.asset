@@ -21,6 +21,11 @@ TagManager:
   - SettingsButton
   - AchievementsButton
   - LeaderboardsButton
+  - RightScroll
+  - LeftScroll
+  - ChooseCharacterButton
+  - NopeButton
+  - ReviveButton
   layers:
   - Default
   - TransparentFX
