@@ -58,6 +58,8 @@ public class ClickHandler : MonoBehaviour {
 		if (SceneManager.GetActiveScene ().name == "StartMenu") {
 			Animator transition = Camera.main.GetComponent<Animator> ();
 			transition.Play ("StartMenu_Camera_RotateAway");
+		} else if (SceneManager.GetActiveScene ().name == "Characters" && gameObject.tag == "PlayButton") {
+			Change_Scene ();
 		}
 
 		switch (gameObject.tag) {
