@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour {
 
 	public static void Play_Audio (AudioClip clip) {
 		Camera.main.GetComponent<AudioSource> ().clip = clip;
-		Camera.main.GetComponent<AudioSource> ().Play ();
+		//Camera.main.GetComponent<AudioSource> ().Play ();
 	}
 
 }
