@@ -1,5 +1,5 @@
-lastUpgrade=00932
-proj.pluginVersion=0.9.32
+lastUpgrade=00935
+proj.pluginVersion=0.9.35
 proj.AppId=47841678861
 and.BundleId=com.ScareCrownStudios.Tarline
 proj.classDir=Assets

@@ -27,7 +27,7 @@ public class MainGameManager : MonoBehaviour {
 	public enum game_state{PreStart,Playing,Paused,GameOver};
 	public static game_state current_game_state = game_state.PreStart;
 	public static float speed = 6;
-	public static float max_speed = 15;
+	public static float max_speed = 16;
 	public static ArrayList All_Lines;
 	public static ArrayList All_Obstacles;
 	public static int Number_Of_Obstacles = 0;
@@ -121,6 +121,8 @@ public class MainGameManager : MonoBehaviour {
 		scoreReadout.GetComponent<Animator> ().Play ("MainGame_Score_In");
 		highScoreReadout = GameObject.FindGameObjectWithTag ("HighScore");
 		highScoreReadout.GetComponent<TextMesh> ().text = HighScore.ToString ();
+		speed = Mathf.RoundToInt((float) (6 + ((1.2 * HighScore) / 150)));
+		max_speed = Mathf.RoundToInt((float)(16 + ((2 * HighScore) / 150)));
 		coinReadout = GameObject.FindGameObjectWithTag ("CoinBanner");
 		coinReadout.GetComponentInChildren<TextMesh> ().text = coins.ToString ();
 		clickWall = GameObject.FindGameObjectWithTag ("ClickWall");
