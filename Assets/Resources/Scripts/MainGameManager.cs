@@ -46,7 +46,7 @@ public class MainGameManager : MonoBehaviour {
 	public static GameObject clickWall;
 	public static Dictionary<string,Color> colors = new Dictionary<string, Color>();
 	private static ArrayList colors_array;
-	public static GameObject destroyed_particle;
+	public static GameObject destroyed_particle; 
 	public static bool canReset = false;
 	bool coin_adding = false;
 	int temp_coin_add_reference = 0;
@@ -57,6 +57,7 @@ public class MainGameManager : MonoBehaviour {
 	public static int score;
 	public static int coins;
 	public static int HighScore;
+    public static int distance;
 
 	public static bool isFirstGame = false;
 	public static bool GPGS_Logged_In = false;
@@ -66,6 +67,7 @@ public class MainGameManager : MonoBehaviour {
 		GPGS_Logged_In = Social.localUser.authenticated;
 		Debug.Log (GPGS_Logged_In);
 		HighScore = SaveManager.GetHighScore();
+        distance = SaveManager.GetDistance();
 		coins = SaveManager.GetCoins ();
 		canReset = false;
 		isFirstGame = SaveManager.IsFirstTime ();
@@ -216,8 +218,11 @@ public class MainGameManager : MonoBehaviour {
 				highScoreReadout.GetComponent<TextMesh> ().text = HighScore.ToString ();
 			}
 		}
-			 
-
+        //the big k
+        distance += score; 
+        if (distance == 1000) {
+            GPS.AwardAchievement("TheBigK");
+        }
 		}
 
  void AddLineSegmentInternal(){

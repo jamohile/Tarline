@@ -32,6 +32,9 @@ public class GPS : MonoBehaviour {
 		case "Platinum":
 			achievementString = GPGS_CONTANTS.achievement_platinum;
 			break;
+        case "TheBigK":
+            achievementString = GPGS_CONTANTS.achievement_the_big_k;
+                break;        
 		}
 		if (Social.localUser.authenticated == true) {
 			Social.ReportProgress (achievementString, 100.0f, (bool success) => {

@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour {
 			PlayerPrefs.SetInt("HighScore",0);
 			PlayerPrefs.SetInt ("Coins", 0);
 			PlayerPrefs.SetString ("Character", "TarCar");
+            PlayerPrefs.SetInt("Distance", 0);
 			UnlockCharacter ("TarCar");
 			has_been_opened_before =  false;
 			PlayerPrefs.Save();
@@ -36,6 +37,13 @@ public class SaveManager : MonoBehaviour {
 	public static int GetCoins(){
 		return PlayerPrefs.GetInt("Coins");
 	}
+    public static int GetDistance(){
+        return PlayerPrefs.GetInt("Distance");
+    }
+    public static void SetDistance(int distance){
+        PlayerPrefs.SetInt("Distance", distance);
+        PlayerPrefs.Save();
+    }
 	public static string GetCharacter(){
 		if (PlayerPrefs.GetString ("Character") == "") {
 			SetCharacter ("TarCar");
