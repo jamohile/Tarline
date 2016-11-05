@@ -168,18 +168,18 @@ public class MainGameManager : MonoBehaviour {
 			}
 		}
 		if(current_game_state ==game_state.Playing){
-			//adjust speed of player
-			if(speed<= max_speed){
-				speed += (score/speed)/1000;
-				Vector3 tempVel = new Vector3 (speed, 0f, 0f);
-				player.GetComponent<Rigidbody2D> ().velocity = tempVel;
+            //adjust speed of player
+            if (speed <= 2 * max_speed)
+            {
+                speed += (float)( (speed <= max_speed) ? ((score / speed) / 1000) : (speed <= 1.5 * max_speed) ? 0.8 * ((score / speed) / 1000) : 0.6 * ((score / speed) / 1000));
+                Vector3 tempVel = new Vector3(speed, 0f, 0f);
+                player.GetComponent<Rigidbody2D>().velocity = tempVel;
+                // adjust speed of "flip" animation
+                //player.GetComponentInChildren<Animator>().speed = speed/6;//scales speed proporitanetly to movement speed
+            }
 
-				// adjust speed of "flip" animation
-				//player.GetComponentInChildren<Animator>().speed = speed/6;//scales speed proporitanetly to movement speed
-			}
 
-
-			if (player.transform.position.x > 0 - cameraSize.x / 4) {
+            if (player.transform.position.x > 0 - cameraSize.x / 4) {
 				if (offset == 0) {
 					//offset = Camera.main.transform.position.x - player.transform.position.x;
 				}
@@ -330,27 +330,39 @@ public class MainGameManager : MonoBehaviour {
 		GameObject Medal_Gold = Resources.Load("Sprites/Ui/Prefabs/Medal_Gold") as GameObject;
 		GameObject Medal_Silver = Resources.Load("Sprites/Ui/Prefabs/Medal_Silver") as GameObject;
 		GameObject Medal_Bronze = Resources.Load("Sprites/Ui/Prefabs/Medal_Bronze") as GameObject;
+        GameObject Medal_Platinum = Resources.Load("Sprites/Ui/Prefabs/Medal_Platinum") as GameObject;
 		for (int score_tick = 1; score_tick <= score; score_tick++) {
 			if (score_tick != 1) {
 				scoreReadout.GetComponent<TextMesh> ().text = (score_tick + " meters");
 			} else {
 				scoreReadout.GetComponent<TextMesh> ().text = (score_tick + " meter");
 			}
-			//handle medals
-			if (score_tick == 10) {
-				//award bronze medal
-				GameObject Bronze = Instantiate (Medal_Bronze, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
-				GPS.AwardAchievement("Bronze");
-			} else if (score_tick == 25) {
-				//award silver medal
-				GameObject Silver = Instantiate (Medal_Silver, new Vector3 (Camera.main.transform.position.x,3.9f, 0f), identity) as GameObject;
-				GPS.AwardAchievement("Silver");
-			}else if (score_tick == 50) {
-				//award silver medal
-				GameObject Gold = Instantiate (Medal_Gold, new Vector3 (Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
-				GPS.AwardAchievement("Gold");
-			}
-			yield return new WaitForSeconds(0.1f);
+            //handle medals
+            if (score_tick == 10)
+            {
+                //award bronze medal
+                GameObject Bronze = Instantiate(Medal_Bronze, new Vector3(Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+                GPS.AwardAchievement("Bronze");
+            }
+            else if (score_tick == 25)
+            {
+                //award silver medal
+                GameObject Silver = Instantiate(Medal_Silver, new Vector3(Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+                GPS.AwardAchievement("Silver");
+            }
+            else if (score_tick == 50)
+            {
+                //award gold medal
+                GameObject Gold = Instantiate(Medal_Gold, new Vector3(Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+                GPS.AwardAchievement("Gold");
+            }
+            else if (score_tick == 100)
+            {
+                //award Platinum medal
+                GameObject Platinum = Instantiate(Medal_Platinum, new Vector3(Camera.main.transform.position.x, 3.9f, 0f), identity) as GameObject;
+                GPS.AwardAchievement("Platinum");
+            }
+                yield return new WaitForSeconds(0.1f);
 		}
 	}
 

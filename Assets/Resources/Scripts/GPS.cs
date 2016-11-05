@@ -30,7 +30,7 @@ public class GPS : MonoBehaviour {
 			achievementString = GPGS_CONTANTS.achievement_gold;
 			break;
 		case "Platinum":
-			achievementString = GPGS_CONTANTS.achievement_gold;
+			achievementString = GPGS_CONTANTS.achievement_platinum;
 			break;
 		}
 		if (Social.localUser.authenticated == true) {
